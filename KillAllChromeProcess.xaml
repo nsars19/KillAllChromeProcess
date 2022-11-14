@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1040,2262" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:u="clr-namespace:UpdateChromePreferenceLibrary;assembly=UpdateChromePreferenceLibrary" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1040,2222" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Diagnostics;assembly=System" xmlns:u="clr-namespace:UpdateChromePreferenceLibrary;assembly=UpdateChromePreferenceLibrary" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -30,6 +30,7 @@
       <x:String>UiPath.UIAutomationCore.Contracts</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>UpdateChromePreferenceLibrary</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -54,21 +55,28 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UpdateChromePreferenceLibrary</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="UMassKillAllProcesses Sequence" sap:VirtualizedContainerService.HintSize="684,2197" sap2010:WorkflowViewState.IdRef="Sequence_7">
+  <Sequence DisplayName="UMassKillAllChromeProcess Sequence" sap:VirtualizedContainerService.HintSize="977,2157" sap2010:WorkflowViewState.IdRef="Sequence_7">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log message (Kill processes)" sap:VirtualizedContainerService.HintSize="642,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Killing processes...&quot;]" />
-    <TryCatch DisplayName="Try Catch for killAllProcesses" sap:VirtualizedContainerService.HintSize="642,1974" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+    <ui:LogMessage DisplayName="Log message (Kill processes)" sap:VirtualizedContainerService.HintSize="935,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Killing Chrome processes...&quot;]" />
+    <TryCatch DisplayName="Try Catch for KillAllChromeProcess" sap:VirtualizedContainerService.HintSize="935,1934" sap2010:WorkflowViewState.IdRef="TryCatch_2">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:Boolean" Default="False" Name="closeProcess" />
       </TryCatch.Variables>
       <TryCatch.Try>
-        <Sequence DisplayName="Sequence - Try Block" sap:VirtualizedContainerService.HintSize="604,1747" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence DisplayName="Sequence - Try Block" sap:VirtualizedContainerService.HintSize="897,1707" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
             <Variable x:TypeArguments="sco:Collection(sd:Process)" Name="runningProcesses" />
           </Sequence.Variables>
@@ -77,8 +85,8 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:GetProcesses ContinueOnError="{x:Null}" DisplayName="Get all running processes" sap:VirtualizedContainerService.HintSize="562,22" sap2010:WorkflowViewState.IdRef="GetProcesses_1" Processes="[runningProcesses]" />
-          <ui:ForEach x:TypeArguments="sd:Process" CurrentIndex="{x:Null}" DisplayName="For Each running process" sap:VirtualizedContainerService.HintSize="562,748" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[runningProcesses]">
+          <ui:GetProcesses ContinueOnError="{x:Null}" DisplayName="Get all running processes" sap:VirtualizedContainerService.HintSize="855,22" sap2010:WorkflowViewState.IdRef="GetProcesses_1" Processes="[runningProcesses]" />
+          <ui:ForEach x:TypeArguments="sd:Process" CurrentIndex="{x:Null}" DisplayName="For Each running process" sap:VirtualizedContainerService.HintSize="855,748" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[runningProcesses]">
             <ui:ForEach.Body>
               <ActivityAction x:TypeArguments="sd:Process">
                 <ActivityAction.Argument>
@@ -90,7 +98,7 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If Condition="[process.ToString.ToLower.Contains(&quot;chrome&quot;)]" DisplayName="If process is Chrome" sap:VirtualizedContainerService.HintSize="484,532" sap2010:WorkflowViewState.IdRef="If_1">
+                  <If Condition="[process.ProcessName.ToLower = &quot;chrome&quot;]" DisplayName="If process is Chrome" sap:VirtualizedContainerService.HintSize="484,532" sap2010:WorkflowViewState.IdRef="If_1">
                     <If.Then>
                       <Sequence DisplayName="Sequence - if Chrome block" sap:VirtualizedContainerService.HintSize="376,345" sap2010:WorkflowViewState.IdRef="Sequence_1">
                         <sap:WorkflowViewStateService.ViewState>
@@ -98,7 +106,7 @@
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:LogMessage DisplayName="Log Message (Chrome found)" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Chrome browser found. Setting closeProcess to true &quot; + process.ToString]" />
+                        <ui:LogMessage DisplayName="Log Message (Chrome found)" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Chrome browser found. Setting closeProcess to true. Process name: &quot; + process.ProcessName]" />
                         <Assign DisplayName="Assign True to closeProcess" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Boolean">[closeProcess]</OutArgument>
@@ -124,16 +132,16 @@
               </ActivityAction>
             </ui:ForEach.Body>
           </ui:ForEach>
-          <If Condition="[closeProcess]" DisplayName="Check If closeProcess is true" sap:VirtualizedContainerService.HintSize="562,743" sap2010:WorkflowViewState.IdRef="If_2">
+          <If Condition="[closeProcess]" DisplayName="Check If closeProcess is true" sap:VirtualizedContainerService.HintSize="855,703" sap2010:WorkflowViewState.IdRef="If_2">
             <If.Then>
-              <Sequence DisplayName="Close Chrome" sap:VirtualizedContainerService.HintSize="480,556" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence DisplayName="Close Chrome" sap:VirtualizedContainerService.HintSize="476,545" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:LogMessage DisplayName="Log Message (Chrome found. Closing browser)" sap:VirtualizedContainerService.HintSize="438,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Chrome browser found. Closing &quot;]" />
-                <TryCatch DisplayName="Close Chrome Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                <ui:LogMessage DisplayName="Log Message (Chrome found. Closing browser)" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Chrome browser found. Closing &quot;]" />
+                <TryCatch DisplayName="Close Chrome Try Catch" sap:VirtualizedContainerService.HintSize="434,322" sap2010:WorkflowViewState.IdRef="TryCatch_1">
                   <TryCatch.Try>
                     <ui:CloseApplication DisplayName="Close Application 'chrome.exe' in Kill" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
                       <ui:CloseApplication.Target>
@@ -149,10 +157,10 @@
                     </ui:CloseApplication>
                   </TryCatch.Try>
                   <TryCatch.Catches>
-                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,160" sap2010:WorkflowViewState.IdRef="Catch`1_1">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
@@ -167,12 +175,15 @@
                 </TryCatch>
               </Sequence>
             </If.Then>
+            <If.Else>
+              <ui:LogMessage DisplayName="Log Message - Chrome not found" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;No Chrome browser found&quot;]" />
+            </If.Else>
           </If>
-          <u:UpdateChromePreference DisplayName="UpdateChromePreference in KillAllProcess" sap:VirtualizedContainerService.HintSize="562,22" sap2010:WorkflowViewState.IdRef="UpdateChromePreference_1" />
+          <u:UpdateChromePreference DisplayName="Update Chrome Preferences" sap:VirtualizedContainerService.HintSize="855,22" sap2010:WorkflowViewState.IdRef="UpdateChromePreference_1" />
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="608,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="901,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -183,14 +194,16 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Catch block for KillAllProcess Exceptions" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_6">
+            <Sequence DisplayName="Catch block for KillAllChromeProcess Exceptions" sap:VirtualizedContainerService.HintSize="376,376" sap2010:WorkflowViewState.IdRef="Sequence_6">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:LogMessage DisplayName="Log Message (Rethrowing exception from KillAllProcesses)" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;Rethrowing exception from KillAllProcesses &quot;]" />
-              <Rethrow DisplayName="Rethrow exception in KillAll" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+              <ui:LogMessage DisplayName="Log Message - KillAllChromeProcess exception" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Error" Message="[exception.Message]" />
+              <ui:LogMessage DisplayName="Log Message (Rethrowing exception from KillAllProcesses)" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;Rethrowing exception from KillAllChromeProcess&quot;]" />
+              <Rethrow DisplayName="Rethrow exception in KillAllChromeProcess" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
             </Sequence>
           </ActivityAction>
         </Catch>

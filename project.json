@@ -3,7 +3,8 @@
   "description": "A library to end all running Chrome processes",
   "main": "NewActivity.xaml",
   "dependencies": {
-    "UiPath.System.Activities": "22.4.5"
+    "UiPath.System.Activities": "22.4.5",
+    "UpdateChromePreferenceLibrary": "1.0.1"
   },
   "webServices": [],
   "entitiesStores": [],
